@@ -17,7 +17,11 @@ def create_wordlist(fname: str, length: int) -> typing.List[str]:
     """Load and create a wordlist from a filename."""
     with open(fname, "r") as f:
         lines = f.readlines()
-    return list(map(lambda word: filter_word(word, length), lines))
+    
+    word_list = list(map(lambda word: filter_word(word, length), lines))
+    word_list = [x for x in word_list if x is not None] # Remove None's from list
+
+    return word_list
 
 
 def validate(guess: str, wordlen: int,
@@ -139,7 +143,7 @@ def compare(expected: str, guess: str) -> typing.List[str]:
 if __name__ == '__main__':
     # the game word is 5 letters
     WORDLEN = 5
-    GAMEWORD_LIST_FNAME = "gamewords.txt"
+    GAMEWORD_LIST_FNAME = "welsh_place_names.txt"
     GUESSWORD_LIST_FNAME = GAMEWORD_LIST_FNAME#"guesswords.txt"
 
     # load the wordlist that we will select words from
